@@ -35,20 +35,23 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            padding: 12px; /* Еще компактнее для гарантии */
+            /* Убрали верхний padding контейнера, чтобы header прижался к самому верху */
+            padding: 0 0 8px 0; 
             box-sizing: border-box;
             z-index: 10;
         }
 
         header {
             text-align: center;
-            margin-bottom: 4px;
+            /* НОЛЬ отступа снизу! Видео начнется сразу под текстом */
+            margin-bottom: 0; 
+            padding: 8px 12px 2px 12px; /* Минимальный padding только для текста */
             flex-shrink: 0; 
         }
 
         h1 {
             color: var(--gold);
-            font-size: 1.3rem;
+            font-size: 1.1rem; 
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -57,29 +60,33 @@
 
         h2 {
             color: var(--white);
-            font-size: 1.5rem;
+            font-size: 1.3rem; 
             font-weight: 700;
-            margin-top: 4px;
+            margin-top: 2px; 
+            margin-bottom: 0; /* Критически важно: ноль отступа до видео */
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        /* --- МЕДИА БЛОК --- */
+        /* --- ВИДЕО ВПЛОТНУЮ --- */
         .media-wrapper {
             position: relative;
             width: 100%;
-            aspect-ratio: 16 / 9; 
             
-            border-radius: 12px;
+            /* Прямые углы сверху для идеальной стыковки с текстом */
+            border-radius: 0 0 12px 12px;
+            
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border: 1px solid #333;
+            border-top: none; /* Убираем линию сверху */
             background: #000;
             
             flex-grow: 1; 
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 6px 0;
+            
+            margin: 0; /* Абсолютно ноль отступов */
         }
 
         img.cover-image {
@@ -112,17 +119,20 @@
 
         footer {
             text-align: center;
-            margin-top: 4px;
+            margin-top: 6px; /* Единственный небольшой отступ после видео */
             flex-shrink: 0; 
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 0 12px;
         }
 
-        /* ТЕКСТ ПОЖЕЛАНИЯ (3 СТРОКИ) */
         p.wishes {
-            font-size: 0.85rem;
-            line-height: 1.35;
+            font-size: 0.8rem; 
+            line-height: 1.3;
             color: #ddd;
-            margin-bottom: 8px;
-            white-space: pre-line; /* Разрешает переносы строк из HTML */
+            margin: 0;
+            white-space: pre-line;
         }
 
         .play-btn {
@@ -130,16 +140,15 @@
             border: none;
             color: #000;
             font-weight: bold;
-            font-size: 1rem;
-            padding: 12px;
+            font-size: 0.9rem;
+            padding: 10px; 
             width: 100%;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
             transition: transform 0.2s;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0;
+            letter-spacing: 0.5px;
         }
 
         .play-btn:active {
@@ -156,13 +165,12 @@
             z-index: 5;
         }
 
-        /* --- КАСТОМНЫЙ ПЛЕЕР --- */
         .custom-player {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
-            padding: 8px 12px;
+            padding: 6px 10px; 
             display: none;
             align-items: center;
             gap: 8px;
@@ -177,11 +185,11 @@
             background: none;
             border: none;
             color: var(--gold);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             cursor: pointer;
             padding: 0;
             line-height: 1;
-            width: 28px;
+            width: 24px;
             text-align: center;
             flex-shrink: 0;
         }
@@ -190,12 +198,12 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 2px;
         }
 
         .progress-bar-bg {
             width: 100%;
-            height: 5px;
+            height: 4px; 
             background: #333;
             border-radius: 3px;
             cursor: pointer;
@@ -215,8 +223,8 @@
             position: absolute;
             right: -4px;
             top: -2px;
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
             background: #fff;
             border-radius: 50%;
             box-shadow: 0 0 5px rgba(0,0,0,0.5);
@@ -225,7 +233,7 @@
         .time-info {
             display: flex;
             justify-content: space-between;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #aaa;
             font-family: monospace;
         }
@@ -243,6 +251,7 @@
         <h2>Игорь Александрович</h2>
     </header>
 
+    <!-- Видео начинается сразу под именем -->
     <div class="media-wrapper">
         <img src="IGORHBD.PNG" alt="Заставка" class="cover-image">
         
@@ -252,7 +261,6 @@
     </div>
 
     <footer>
-        <!-- РАЗБИВКА НА 3 СТРОКИ -->
         <p class="wishes">Пусть этот день будет наполнен яркими
 эмоциями, теплом близких людей.
 Здоровья, энергии и новых свершений!</p>
@@ -331,7 +339,6 @@
                 container.classList.add('is-playing');
             });
 
-            // ЗАМЕНА КНОПКИ НА ПЛЕЕР
             btn.style.display = 'none'; 
             playerDiv.style.display = 'flex';
             
@@ -357,7 +364,7 @@
         if (music.paused) {
             music.play();
             video.play();
-            toggleBtn.textContent = '⏸';
+            toggleBtn.textContent = '';
         } else {
             music.pause();
             video.pause();
