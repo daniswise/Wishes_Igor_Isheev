@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <!-- viewport-fit=cover критичен для работы safe-area на iPhone -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <title>С Днём Рождения, Игорь!</title>
@@ -23,7 +22,8 @@
             background: var(--black);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
             color: var(--white);
-            overflow: hidden; 
+            overflow-y: auto; /* Разрешаем скролл, если контент не влезает */
+            overflow-x: hidden;
             
             display: flex;
             justify-content: center;
@@ -33,11 +33,10 @@
         .screen-container {
             width: 100%;
             max-width: 480px; 
-            height: 100%;
+            min-height: 100%; /* Минимальная высота, но может расти */
             display: flex;
             flex-direction: column;
-            /* Отступ снизу учитывает адресную строку и полосу "Домой" на iPhone */
-            padding: env(safe-area-inset-top, 15px) 15px calc(env(safe-area-inset-bottom, 15px) + 10px) 15px; 
+            padding: env(safe-area-inset-top, 15px) 15px calc(env(safe-area-inset-bottom, 15px) + 20px) 15px; 
             box-sizing: border-box;
             z-index: 10;
         }
@@ -67,11 +66,10 @@
             text-shadow: 0 2px 15px rgba(0,0,0,0.8);
         }
 
-        /* --- ВИДЕО БОЛЕЕ ШИРОКОЕ, ЧТОБЫ ОСВОБОДИТЬ МЕСТО ВНИЗУ --- */
+        /* --- ВИДЕО --- */
         .media-wrapper {
             position: relative;
             width: 100%;
-            /* Пропорция 16:9 вместо 4:3 экономит ~20% высоты экрана */
             aspect-ratio: 16 / 9; 
             
             border-radius: 16px;
@@ -81,10 +79,7 @@
             background: #000;
             
             flex-shrink: 0; 
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            /* УБРАЛИ margin-bottom, теперь отступ задает футер сверху */
         }
 
         img.cover-image {
@@ -113,19 +108,20 @@
         .is-playing img.cover-image { opacity: 0; pointer-events: none; }
         .is-playing video.main-video { opacity: 1; }
 
+        /* --- ФУТЕР СТРОГО ПОД ВИДЕО --- */
         footer {
             text-align: center;
             flex-shrink: 0; 
             display: flex;
             flex-direction: column;
             gap: 8px;
-            /* МАГИЯ: Прижимает футер к низу контейнера, но не ниже safe-area */
-            margin-top: auto; 
+            /* ЖЕСТКИЙ ОТСТУП 2PX ОТ ВИДЕО */
+            margin-top: 2px; 
         }
 
         p.wishes {
-            font-size: 0.85rem; /* Чуть компактнее текст */
-            line-height: 1.35;
+            font-size: 0.9rem;
+            line-height: 1.4;
             color: #e0e0e0;
             margin: 0;
             font-weight: 400;
@@ -146,7 +142,6 @@
             transition: transform 0.2s;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            /* Гарантируем, что кнопка не сожмется */
             flex-shrink: 0; 
         }
 
@@ -261,6 +256,7 @@
         </video>
     </div>
 
+    <!-- ФУТЕР ТЕПЕРЬ ИДЕТ СРАЗУ ПОСЛЕ ВИДЕО -->
     <footer>
         <p class="wishes">Пусть этот день будет наполнен яркими эмоциями,<br>теплом близких людей.<br>Здоровья, энергии и новых свершений!</p>
 
