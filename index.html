@@ -22,21 +22,22 @@
             background: var(--black);
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
             color: var(--white);
-            overflow-y: auto; /* Разрешаем скролл, если контент не влезает */
-            overflow-x: hidden;
+            overflow: hidden; /* Запрещаем скролл для эффекта приложения */
             
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center; /* ЦЕНТРИРОВАНИЕ ПО ВЕРТИКАЛИ */
         }
 
         .screen-container {
             width: 100%;
             max-width: 480px; 
-            min-height: 100%; /* Минимальная высота, но может расти */
+            /* Высота авто, но не больше экрана минус безопасные зоны */
+            max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
             display: flex;
             flex-direction: column;
-            padding: env(safe-area-inset-top, 15px) 15px calc(env(safe-area-inset-bottom, 15px) + 20px) 15px; 
+            align-items: center; /* ЦЕНТРИРОВАНИЕ ПО ГОРИЗОНТАЛИ */
+            padding: 15px; 
             box-sizing: border-box;
             z-index: 10;
         }
@@ -79,7 +80,7 @@
             background: #000;
             
             flex-shrink: 0; 
-            /* УБРАЛИ margin-bottom, теперь отступ задает футер сверху */
+            margin-bottom: 2px; /* Минимальный отступ до текста */
         }
 
         img.cover-image {
@@ -115,8 +116,9 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            /* ЖЕСТКИЙ ОТСТУП 2PX ОТ ВИДЕО */
+            /* УБРАЛИ margin-top: auto, теперь идет сразу за видео */
             margin-top: 2px; 
+            width: 100%;
         }
 
         p.wishes {
@@ -256,7 +258,6 @@
         </video>
     </div>
 
-    <!-- ФУТЕР ТЕПЕРЬ ИДЕТ СРАЗУ ПОСЛЕ ВИДЕО -->
     <footer>
         <p class="wishes">Пусть этот день будет наполнен яркими эмоциями,<br>теплом близких людей.<br>Здоровья, энергии и новых свершений!</p>
 
@@ -265,7 +266,7 @@
         </button>
 
         <div id="audioPlayer" class="custom-player">
-            <button id="togglePlayBtn" class="player-btn">⏸</button>
+            <button id="togglePlayBtn" class="player-btn"></button>
             <div class="progress-container">
                 <div class="progress-bar-bg" id="seekBarBg">
                     <div class="progress-fill" id="progressFill"></div>
